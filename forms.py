@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, IntegerField, PasswordField
-from flask_wtf.file import FileField, FileRequired
+from wtforms import StringField, IntegerField, PasswordField, BooleanField
+from flask_wtf.file import FileField, FileRequired, FileAllowed
 # from sqlalchemy_utils import PhoneNumber
 # from wtforms.fields.html5 import EmailField
 from wtforms import validators
@@ -12,7 +12,7 @@ from wtforms import ValidationError
 
 class FileUploadForm(FlaskForm):
 	title = StringField('Title')
-	note = FileField('File', [InputRequired("Please import the file.")])
+	note = FileField('File', [FileRequired("Please import the file."), FileAllowed(['pdf'], "Only pdf files are supported.")])
 
 class  RegisterForm(FlaskForm):
 	first_name = StringField('First Name', [InputRequired("Please enter your first name.")])
@@ -31,3 +31,4 @@ class  RegisterForm(FlaskForm):
 class  LoginForm(FlaskForm):
 	email = StringField("Email",  [InputRequired("Please enter your email address."), Email("This field requires a valid email address")])
 	password = PasswordField('Password', [InputRequired("Please enter your password.")])
+	remember_me = BooleanField('Remember Me', default="checked")
