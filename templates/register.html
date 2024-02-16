@@ -1,0 +1,75 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+	Register - Sell My Notes
+{% endblock %}
+
+{% block content %}
+	<div class="container mx-auto flex flex-col flex-wrap justify-items-strech gap-3  border-2 border-red-600 ">
+<form method="POST" enctype="multipart/form-data">
+	{{ form.csrf_token }}
+
+    <div class="grid gap-6 mb-6 md:grid-cols-2">
+        <div>
+            <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ form.first_name.label }}</label>
+        	{{ form.first_name(class_="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500")}}
+        	{% for error in form.first_name.errors %}
+		        <div class="invalid-feedback text-xs text-red-500 flex items-center mt-2">{{ error }}</div>
+		    {% endfor %}
+        </div>
+        <div>
+            <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ form.last_name.label }}</label>
+            {{ form.last_name(class_="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500")}}
+
+            {% for error in form.last_name.errors %}
+		        <div class="invalid-feedback text-xs text-red-500 flex items-center mt-2">{{ error }}</div>
+		    {% endfor %}
+        </div>
+        
+    </div>
+    <div class="mb-6">
+        <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ form.email.label }}</label>
+        {{ form.email(class_="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500") }}
+
+        {% for error in form.email.errors %}
+		        <div class="invalid-feedback text-xs text-red-500 flex items-center mt-2">{{ error }}</div>
+		{% endfor %}
+    </div> 
+    <div  class="mb-6">
+            <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ form.phone_number.label }}</label>
+            {{ form.phone_number(class_="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 ", **{'ng-model':'hello', 'placeholder':'09-12345678', 'type':'tel'
+            , 'pattern':'[0-9]{2}-[0-9]{8}' }) }}
+
+            {% for error in form.phone_number.errors %}
+		        <div class="invalid-feedback text-xs text-red-500 flex items-center mt-2">{{ error }}</div>
+		    {% endfor %}
+            <!-- ) -->
+
+		<!-- <input type="tel" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required /> -->
+        </div> 
+    <div class="mb-6">
+    	<label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ form.password.label }}</label>
+        {{ form.password(class_="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", **{'placeholder':'•••••••••' }) }}
+
+
+            {% for error in form.password.errors %}
+		        <p class="text-xs text-red-600">{{ error }}</p>
+		    {% endfor %}
+    </div> 
+    <div class="mb-6">
+    	<label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ form.confirm_password.label }}</label>
+        {{ form.confirm_password(class_="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", **{'placeholder':'•••••••••' }) }}
+
+
+            {% for error in form.confirm_password.errors %}
+		        <div class="invalid-feedback text-xs text-red-500 flex items-center mt-2">{{ error }}</div>
+		    {% endfor %}
+    </div> 
+    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+
+</form>
+</div>
+
+
+
+{% endblock %}
