@@ -1,12 +1,14 @@
 from flask import Flask, render_template, redirect, url_for, request, flash, get_flashed_messages
 from forms import FileUploadForm, RegisterForm, LoginForm
-import os, uuid
+import os, uuid, json
 from werkzeug.utils import secure_filename
 from flask_sqlalchemy import SQLAlchemy
 
 from extensions import app, db, bcrypt, login_manager
 from models import Note, User
 from flask_login import login_user, login_required, logout_user, current_user
+
+from handle_payment import handle_chappa
 
 login_manager.login_view = 'login'
 
@@ -36,13 +38,14 @@ def upload_product():
 
     if form.validate_on_submit():
         _title = form.title.data
+        _price = form.price.data
         f = form.note.data
 
         _, file_extension = os.path.splitext(secure_filename(f.filename))
         filename = uuid.uuid4().hex
 
         # add note to db
-        note = Note(title=_title, filename=filename, user_id=current_user.id)
+        note = Note(title=_title, filename=filename, price=_price, user_id=current_user.id)
         db.session.add(note)
         db.session.commit()
 
@@ -53,6 +56,32 @@ def upload_product():
         return redirect(url_for('home'))
 
     return render_template('upload_product.html', form = form)
+
+@app.route('/handle_payment/<note_id>')
+@login_required
+def handle_payment(note_id):
+    note = Note.query.filter_by(id=note_id).first()
+    return_url = url_for('view_note', note_id=note_id)
+
+    conn, payload, headers = handle_chappa(note.price, current_user.email, current_user.first_name, current_user.phone_number, note.title, return_url)
+
+    conn.request("POST", "/v1/transaction/initialize", payload, headers)
+    resp = conn.getresponse().read()
+    resp = json.loads(resp)
+    redirect_url = resp.get("data").get("checkout_url")
+
+    note.poster.earning += note.price
+    db.session.commit()
+
+    return redirect(redirect_url)
+
+
+@app.route('/view_note/<note_id>')
+def view_note(note_id):
+    note = Note.query.filter_by(id=note_id).first()
+    src = "./uploads/"+note.filename+".pdf"
+    print(src)
+    return render_template('note.html',src=src, note=note)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():

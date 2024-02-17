@@ -9,6 +9,7 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(75), unique=True, nullable=False)
     phone_number = db.Column(db.String(12), unique=False, nullable=False)
     password = db.Column(db.String(60), unique=False, nullable=False)
+    earning = db.Column(db.Integer, default=0)
     notes = db.relationship('Note', backref='poster', lazy=True)
 
 
@@ -20,6 +21,7 @@ class Note(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(200), unique=False, nullable=False)
     filename = db.Column(db.String(32), unique=True, nullable=False)
+    price  = db.Column(db.Integer, default=0)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def __repr__(self):

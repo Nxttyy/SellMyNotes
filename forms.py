@@ -13,6 +13,7 @@ from wtforms import ValidationError
 class FileUploadForm(FlaskForm):
 	title = StringField('Title')
 	note = FileField('File', [FileRequired("Please import the file."), FileAllowed(['pdf'], "Only pdf files are supported.")])
+	price = IntegerField('Price(ETB)')
 
 class  RegisterForm(FlaskForm):
 	first_name = StringField('First Name', [InputRequired("Please enter your first name.")])
