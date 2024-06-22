@@ -13,6 +13,10 @@ from handle_payment import handle_chappa
 login_manager.login_view = 'login'
 
 
+with app.app_context():
+    db.create_all()
+
+
 # login_manager = LoginManager()
 
 @login_manager.user_loader
