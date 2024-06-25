@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, request, flash, get_flashed_messages
+from flask import Flask, render_template, redirect, url_for, request, flash, get_flashed_messages, send_from_directory
 from forms import FileUploadForm, RegisterForm, LoginForm
 import os, uuid, json
 from werkzeug.utils import secure_filename
@@ -37,7 +37,6 @@ def home():
 @app.route('/upload_product', methods=['GET', 'POST'])
 @login_required
 def upload_product():
-
     form = FileUploadForm()
 
     if form.validate_on_submit():
@@ -48,18 +47,22 @@ def upload_product():
         _, file_extension = os.path.splitext(secure_filename(f.filename))
         filename = uuid.uuid4().hex
 
+        # Create the uploads directory if it doesn't exist
+        upload_path = os.path.join(app.config['UPLOAD_FOLDER'], 'notes')
+        if not os.path.exists(upload_path):
+            os.makedirs(upload_path)
+
         # add note to db
         note = Note(title=_title, filename=filename, price=_price, user_id=current_user.id)
         db.session.add(note)
         db.session.commit()
 
-        f.save(os.path.join(
-            app.instance_path, 'uploads', filename+file_extension
-        ))
+        f.save(os.path.join(upload_path, filename + file_extension))
 
         return redirect(url_for('home'))
 
-    return render_template('upload_product.html', form = form)
+    return render_template('upload_product.html', form=form)
+
 
 @app.route('/handle_payment/<note_id>')
 @login_required
@@ -152,6 +155,11 @@ def logout():
 def account():
 
     return render_template('account.html')
+
+
+@app.route('/uploads/<filename>')
+def uploaded_file(filename):
+    return send_from_directory(os.path.join(app.config['UPLOAD_FOLDER'], 'notes'), filename)
 
 
 if __name__ == '__main__':

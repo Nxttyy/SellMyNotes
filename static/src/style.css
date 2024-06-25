@@ -1,0 +1,79 @@
+body {
+	background-color: #dad7cd
+}
+
+#img {
+	max-height: 100%;
+	max-width: 100%
+}
+
+.hero {
+	background-color: #a3b18a;
+	margin: 20px;
+	width: 100%;
+	display: flex;
+	overflow: hidden;
+	height: 550px
+}
+
+.illustration {
+	width: 75%;
+	overflow: hidden;
+
+}
+
+.myImg {
+	max-height: 100%;
+	max-width: 100%
+}
+
+.sell {
+	height: 100%;
+	width: 25%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	
+}
+
+.cta-button {
+    background-color: #6c63ff;
+    border: none;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.cta-button:hover {
+    background-color: #393588;
+    transform: scale(1.1);
+}
+
+.cta-button:active {
+    background-color: #ff6b6b;
+    transform: scale(1.05);
+}
+
+
+.note-card-section {
+    margin-top: 50px;
+}
+
+.note-card {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.pdf-preview {
+    background-color: #f7f7f7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.pdf-preview embed {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}

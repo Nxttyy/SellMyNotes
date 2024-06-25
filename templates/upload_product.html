@@ -5,29 +5,23 @@
 {% endblock %}
 
 {% block content %}
-	<div class="container container-md mx-auto">
-		<p class="text-2xl text-center p-5 font-bold">Upload Product.</p>
-
-		<form method="POST" enctype="multipart/form-data" class=" flex flex-col justify-center p-5 space-y-3">
-    		{{ form.csrf_token }}
-    		{{ form.title.label(class_="block mb-2 text-sm font-medium text-gray-900 dark:text-white") }} 
-    		{{ form.title(class_="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500") }}
-
-    		{{ form.note.label(class_="block mb-2 text-sm font-medium text-gray-900 dark:text-white") }}
-    		{{ form.note(class_="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400") }} 
-    		{% for error in form.note.errors %}
-		        <div class="invalid-feedback text-xs text-red-500 flex items-center mt-2">{{ error }}</div>
-		    {% endfor %}
-
-    		{{ form.price.label(class_="block mb-2 text-sm font-medium text-gray-900 dark:text-white") }}	
-
-		   {{ form.price(class_="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400") }} 
-    		{% for error in form.price.errors %}
-		        <div class="invalid-feedback text-xs text-red-500 flex items-center mt-2">{{ error }}</div>
-		    {% endfor %}
-    		
-    	<input class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 button-center " type="submit" value="Finish">
-		</form>
-	</div>
+ <div class="container mt-5">
+        <h1>Upload Note</h1>
+        <form method="POST" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                {{ form.title.label(class="form-label") }}
+                {{ form.title(class="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ form.price.label(class="form-label") }}
+                {{ form.price(class="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ form.note.label(class="form-label") }}
+                {{ form.note(class="form-control-file") }}
+            </div>
+            <button type="submit" class="btn btn-primary">Upload</button>
+        </form>
 {% endblock %}
 

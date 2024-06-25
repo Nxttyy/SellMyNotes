@@ -24,7 +24,7 @@ class  RegisterForm(FlaskForm):
 	confirm_password = PasswordField('Confirm Password', [InputRequired("Please confirm your password.")])
 
 	def validate_email(form, field):
-		print(form.email.data)
+		# print(form.email.data)
 		user = User.query.filter_by(email=form.email.data).first()
 		if user:
 			raise ValidationError("Email already in use.")

@@ -1,45 +1,47 @@
 {% extends 'layout.html' %}
-
 {% block title %}
 	Home - Sell My Notes
 {% endblock %}
-
 {% block content %}
-	<div class="grid grid-cols-2  border-2 border-red-600 ">
-		<!-- <p class="text-2xl text-center p-5 font-bold">Sell My Notes.</p> -->
-
-		{% for note in notes %}
-			<div class="max-w-sm p-10 m-10 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-			    <!-- <a href="#">
-			        <img class="rounded-t-lg" src="/docs/images/blog/image-1.jpg" alt="" />
-			    </a> -->
-			    <div class="p-5">
-			        <a href="#">
-			            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ note.title }}</h5>
-			        </a>
-			        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Default description for your notes, It is crucial you take your time describing your note for the sake of clarity for the buyer and traffic to you.</p>
-			        
-			        <p class="p-3 m-3 text-gray-300 ml-0 pr-0">From: {{ note.poster.first_name }} {{ note.poster.seond_name }}</p>
-			        <button type="button" class="text-white bg-blue-400 dark:bg-blue-500 cursor-not-allowed font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-5" disabled>{{note.price}} ETB</button>
-
-			        <a href="{{ url_for('handle_payment', note_id=note.id) }}" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 self-end">
-			            Get It
-			             <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-			                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-			            </svg>
-			        </a>
-			    </div>
-			</div>
-			<!-- <p>{{ note.title }}</p>
-			<p>{{ note.filename }}</p> -->
-		{% endfor %}
-		
-
-	</div>
-	<div class="flex flex-column justify-center">
-			<a type="button" class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 button-center "
-
-			href="{{ url_for('upload_product') }}">Start Selling</a>
-
+	<div class="hero">
+		<div class="sell gap-1 px-5 mx-5">
+			<h1 class="display-4">Welcome to SellMyNotes</h1>
+			<p class="">Turn your class notes into cash!</p>
+			<a href="{{ url_for('upload_product') }}" class="btn btn-primary btn-lg cta-button">Start Selling</a>
 		</div>
+		<div class="illustration py-5"><img src="{{ url_for('static',filename='assets/svg/hero.svg') }}" class="myImg" /></div>
+	</div>
+</div>
+
+{% for note in notes %}
+	<section class="note-card-section container mt-5">
+		<div class="card note-card mb-4">
+			<div class="row no-gutters">
+				<div class="col-md-4">
+					<div class="pdf-preview">
+						<embed src="{{ url_for('uploaded_file', filename=note.filename) }}" type="application/pdf" width="100%" height="250px" />
+					</div>
+				</div>
+				<div class="col-md-8">
+					<div class="card-body">
+						<h5 class="card-title">{{ note.title }}</h5>
+						<p class="card-text">Posted by: {{ note.poster.first_name }} {{ note.poster.seond_name }}</p>
+						<p class="card-text"><strong>Price:</strong> {{note.price}} ETB</p>
+						<a href="#" class="btn btn-success">Buy</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+{% endfor %}
+<!-- <div class="grid grid-cols-2  border-2 border-red-600 "> -->
+<!-- <p class="text-2xl text-center p-5 font-bold">Sell My Notes.</p> -->
+<!-- {% for note in notes %} -->
+<!-- {{ note.title }} -->
+<!-- From: {{ note.poster.first_name }} {{ note.poster.seond_name }} -->
+<!-- {{note.price}} ETB -->
+
+<!-- {% endfor %} -->
+
+</div>
 {% endblock %}

@@ -5,10 +5,15 @@ from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 
 SECRET_KEY = os.urandom(32)
+# UPLOAD_FOLDER = "/uploads"
+
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = SECRET_KEY
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///testdb.db"
+app.config['UPLOAD_FOLDER'] = os.path.join(os.getcwd(), 'uploads')
+
 
 db = SQLAlchemy()
 db.init_app(app)
