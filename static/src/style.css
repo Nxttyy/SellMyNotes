@@ -82,3 +82,9 @@ body {
 .error-message {
 	color: red;
 }
+
+
+.clr {
+	background-color: #a3b18a;
+	padding: 20px;
+}
