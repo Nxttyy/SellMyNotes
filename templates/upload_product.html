@@ -6,22 +6,40 @@
 
 {% block content %}
  <div class="container mt-5">
-        <h1>Upload Note</h1>
+        <h1>Upload Product</h1>
         <form method="POST" enctype="multipart/form-data">
             {{ form.hidden_tag() }}
+            
+            <!-- Title Field -->
             <div class="form-group">
-                {{ form.title.label(class="form-label") }}
-                {{ form.title(class="form-control") }}
+                <label for="title">Title</label>
+                {{ form.title(class="form-control", id="title") }}
+                {% for error in form.title.errors %}
+                    <p class="error-message">{{ error }}</p>
+                {% endfor %}
             </div>
+            
+            <!-- File Field -->
             <div class="form-group">
-                {{ form.price.label(class="form-label") }}
-                {{ form.price(class="form-control") }}
+                <label for="note">File (PDF only)</label>
+                {{ form.note(class="form-control-file", id="note") }}
+                {% for error in form.note.errors %}
+                    <p class="error-message">{{ error }}</p>
+                {% endfor %}
             </div>
+            
+            <!-- Price Field -->
             <div class="form-group">
-                {{ form.note.label(class="form-label") }}
-                {{ form.note(class="form-control-file") }}
+                <label for="price">Price (ETB)</label>
+                {{ form.price(class="form-control", id="price") }}
+                {% for error in form.price.errors %}
+                    <p class="error-message">{{ error }}</p>
+                {% endfor %}
             </div>
+            
+            <!-- Submit Button -->
             <button type="submit" class="btn btn-primary">Upload</button>
         </form>
+    </div>
 {% endblock %}
 

@@ -159,7 +159,8 @@ def account():
 
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
-    return send_from_directory(os.path.join(app.config['UPLOAD_FOLDER'], 'notes'), filename)
+    print("^^")
+    return send_from_directory(os.path.join(app.config['UPLOAD_FOLDER'], 'notes'), filename+".pdf")
 
 
 if __name__ == '__main__':

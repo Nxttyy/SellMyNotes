@@ -13,35 +13,36 @@
 	</div>
 </div>
 
-{% for note in notes %}
-	<section class="note-card-section container mt-5">
-		<div class="card note-card mb-4">
-			<div class="row no-gutters">
-				<div class="col-md-4">
-					<div class="pdf-preview">
-						<embed src="{{ url_for('uploaded_file', filename=note.filename) }}" type="application/pdf" width="100%" height="250px" />
-					</div>
-				</div>
-				<div class="col-md-8">
-					<div class="card-body">
-						<h5 class="card-title">{{ note.title }}</h5>
-						<p class="card-text">Posted by: {{ note.poster.first_name }} {{ note.poster.seond_name }}</p>
-						<p class="card-text"><strong>Price:</strong> {{note.price}} ETB</p>
-						<a href="#" class="btn btn-success">Buy</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-{% endfor %}
-<!-- <div class="grid grid-cols-2  border-2 border-red-600 "> -->
-<!-- <p class="text-2xl text-center p-5 font-bold">Sell My Notes.</p> -->
-<!-- {% for note in notes %} -->
-<!-- {{ note.title }} -->
-<!-- From: {{ note.poster.first_name }} {{ note.poster.seond_name }} -->
-<!-- {{note.price}} ETB -->
+<div class="container mt-5">
+        <div class="row">
+            {% for note in notes %}
+                <div class="col-md-6 note-card-section">
+                    <div class="card note-card mb-4">
+                        <div class="row no-gutters">
+                            <div class="col-md-4">
+                                <div class="pdf-preview">
+                                    <embed src="{{ url_for('uploaded_file', filename=note.filename) }}#page=1" type="application/pdf" width="100%" height="250px" />
 
-<!-- {% endfor %} -->
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ note.title }}</h5>
+                                    <p class="card-text">Posted by: {{ note.poster.first_name }} {{ note.poster.seond_name }}</p>
+                                    <p class="card-text"><strong>Price:</strong> {{ note.price }} ETB</p>
+                                    <a href="#" class="btn btn-success">Buy</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% if loop.index % 2 == 0 %}
+                    </div><div class="row">
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+
 
 </div>
 {% endblock %}

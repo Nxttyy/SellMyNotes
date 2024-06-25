@@ -5,47 +5,39 @@
 {% endblock %}
 
 {% block content %}
-
-  <div class="container mx-auto flex flex-col flex-wrap justify-items-strech gap-3 ">
-    <form method="POST" enctype="multipart/form-data">
-      {{ form.csrf_token }}
-
-        <div class="mb-6">
-            <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ form.email.label }}</label>
-            {{ form.email(class_="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500") }}
-
-            {% for error in form.email.errors %}
-                <div class="invalid-feedback text-xs text-red-500 flex items-center mt-2">{{ error }}</div>
-        {% endfor %}
-        </div> 
-        
-        <div class="mb-6">
-          <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ form.password.label }}</label>
-            {{ form.password(class_="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", **{'placeholder':'•••••••••' }) }}
-
-
+ <div class="container mt-5">
+        <h1>User Login</h1>
+        <form method="POST">
+            {{ form.hidden_tag() }}
+            
+            <!-- Email Field -->
+            <div class="form-group">
+                <label for="email">Email</label>
+                {{ form.email(class="form-control", id="email") }}
+                {% for error in form.email.errors %}
+                    <p class="error-message">{{ error }}</p>
+                {% endfor %}
+            </div>
+            
+            <!-- Password Field -->
+            <div class="form-group">
+                <label for="password">Password</label>
+                {{ form.password(class="form-control", id="password") }}
                 {% for error in form.password.errors %}
-                <p class="text-xs text-red-600">{{ error }}</p>
-            {% endfor %}
-        </div> 
-
-        <div class="flex items-start m-5 ml-0">
-                      <div class="flex items-center h-5">
-                        
-                        {{form.remember_me(class_="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800")}}
-                      </div>
-                      <div class="ml-3 text-sm">
-                        <label for="terms" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{form.remember_me.label}}</label>
-                      </div>
-                  </div>
-
-        <button type="submits" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
-
-    </form>
-    <p class="tfont-light text-gray-500 dark:text-gray-300">
-                      New here? <a href="{{ url_for('register') }}" class="font-medium text-primary-600 hover:underline dark:text-cyan-500">Register</a>
-                  </p>
-  </div>
+                    <p class="error-message">{{ error }}</p>
+                {% endfor %}
+            </div>
+            
+            <!-- Remember Me Field -->
+            <div class="form-group form-check">
+                {{ form.remember_me(class="form-check-input", id="remember_me") }}
+                <label class="form-check-label" for="remember_me">Remember Me</label>
+            </div>
+            
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+    </div>
 
 
 
